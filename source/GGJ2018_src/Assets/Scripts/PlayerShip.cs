@@ -101,14 +101,16 @@ public class PlayerShip : MonoBehaviour
     {
         if (canGo)
         {
-            WinPortal winPortal = collision.otherCollider.GetComponent<WinPortal>();
+            WinPortal winPortal = collision.collider.GetComponent<WinPortal>();
             if(winPortal)
             {
                 // YOU WIN!!!!
                 Debug.Log("You win!!!!");
 
+                canGo = false;
 
                 gameObject.SetActive(false);
+                
                 return;
             }
             // TODO: YOU LOOSE!!
