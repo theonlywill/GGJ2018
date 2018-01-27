@@ -8,17 +8,18 @@ public class ItemButton : MonoBehaviour
 {
 	public InventoryItem item = null;
 
-	private Button button = null;
+	//private Button button = null;
 
 	private void Awake()
 	{
-		button = GetComponent<Button>();
-		button.onClick.AddListener( TakeItem );
+		//button = GetComponent<Button>();
+		//button.onClick.AddListener( TakeItem );
+		
 	}
 
 	private void OnDestroy()
 	{
-		button.onClick.RemoveListener( TakeItem );
+		//button.onClick.RemoveListener( TakeItem );
 	}
 
 	public void TakeItem()

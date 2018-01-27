@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 		get { return itemGrabManager; }
 	}
 
+	public Canvas canvas = null;
+
 	private void Awake()
 	{
 		if(activeInstance != null)
