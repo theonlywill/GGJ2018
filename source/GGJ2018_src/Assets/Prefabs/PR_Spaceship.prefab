@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4106524835586100}
   - component: {fileID: 50162941877004602}
   - component: {fileID: 114428323057790346}
+  - component: {fileID: 114467761935821616}
   m_Layer: 0
   m_Name: PR_Spaceship
   m_TagString: Untagged
@@ -134,7 +135,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1030205106077898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90.00238}
+  m_LocalPosition: {x: 1.1, y: -44.2, z: 90.00238}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4401946467590078}
@@ -287,6 +288,17 @@ MonoBehaviour:
   model: {fileID: 1353780819983774}
   thrusterFX: {fileID: 1267313926860194}
   rotationSpeedDegreesPerSec: 60
+--- !u!114 &114467761935821616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030205106077898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c31754bb274264b9306a75bcb6d430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114657254176406636
 MonoBehaviour:
   m_ObjectHideFlags: 1
