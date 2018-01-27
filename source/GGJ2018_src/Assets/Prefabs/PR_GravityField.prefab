@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4958851748358634}
   - component: {fileID: 212351756833126564}
   m_Layer: 5
-  m_Name: delayfield sprite
+  m_Name: gravfield sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1247029986624642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 66.9, y: 162.1, z: 90}
+  m_LocalPosition: {x: -0.3226, y: 0.4304, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4958851748358634}
@@ -83,7 +83,7 @@ Transform:
   m_GameObject: {fileID: 1434842513661876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4207271, y: 1.4207275, z: 1.4207275}
+  m_LocalScale: {x: 0.013709163, y: 0.013709171, z: 0.013709171}
   m_Children: []
   m_Father: {fileID: 4501779633352368}
   m_RootOrder: 1
@@ -96,7 +96,7 @@ Transform:
   m_GameObject: {fileID: 1464995004523722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4501779633352368}
   m_RootOrder: 0
@@ -115,7 +115,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 13
+  m_Radius: 0.13
 --- !u!114 &114458986316839130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c389d80e5ded71444b05af912609c75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 120
+  power: 10
 --- !u!212 &212351756833126564
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -167,7 +167,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.2, y: 0.2}
+  m_Size: {x: 20.48, y: 20.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
