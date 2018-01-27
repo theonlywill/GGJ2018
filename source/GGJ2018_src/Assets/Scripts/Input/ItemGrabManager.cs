@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemGrabManager : MonoBehaviour
 {
 	private GameObject heldItem = null;
-	private Rigidbody2D heldBody = null;
 
 	public GameObject HeldItem
 	{
@@ -13,7 +12,6 @@ public class ItemGrabManager : MonoBehaviour
 	}
 
 	#region Unity Messages
-	// Update is called once per frame
 	void Update()
 	{
 		if( heldItem != null )
@@ -34,8 +32,13 @@ public class ItemGrabManager : MonoBehaviour
 	public void GrabItem( GameObject item )
 	{
 		heldItem = item;
-		heldBody = heldItem.GetComponent<Rigidbody2D>();
-		heldBody.isKinematic = true;
+
+		Rigidbody2D body = heldItem.GetComponent<Rigidbody2D>();
+		if(body != null)
+		{
+			body.isKinematic = true;
+		}
+		
 		UpdateHeldItemPosition();
 	}
 	#endregion Public Interface
@@ -43,8 +46,12 @@ public class ItemGrabManager : MonoBehaviour
 	#region Helpers
 	private void ReleaseItem()
 	{
-		heldBody.isKinematic = false;
-		heldBody = null;
+		Rigidbody2D body = heldItem.GetComponent<Rigidbody2D>();
+		if( body != null )
+		{
+			body.isKinematic = false;
+		}
+
 		heldItem = null;
 	}
 
