@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 		get { return itemGrabManager; }
 	}
 
+    public static PlayerShip playerShip;
+
 	private void Awake()
 	{
 		if(activeInstance != null)

@@ -12,7 +12,7 @@ public class PlayerShip : MonoBehaviour
 
     public float fuelConsumptionRate = 5f;
 
-    Rigidbody2D body;
+    public Rigidbody2D body;
 
     public UnityEvent onFuelEmpty;
 
@@ -127,6 +127,63 @@ public class PlayerShip : MonoBehaviour
         }
     }
 
+    void ApplyGravityFields()
+    {
+        for (int i = 0; i < gravityFieldsImIn.Count; i++)
+        {
+            if (gravityFieldsImIn[i])
+            {
+                body.AddForce((gravityFieldsImIn[i].transform.position - transform.position).normalized * gravityFieldsImIn[i].power * Time.fixedDeltaTime);
+            }
+        }
+    }
+
+    void ApplyRepulseFields()
+    {
+        for (int i = 0; i < repulseFieldsImIn.Count; i++)
+        {
+            if (repulseFieldsImIn[i])
+            {
+                body.AddForce((repulseFieldsImIn[i].transform.position - transform.position).normalized * -repulseFieldsImIn[i].power * Time.fixedDeltaTime);
+            }
+        }
+    }
+
+    void PointTowardsVelocity()
+    {
+        if (body.velocity.magnitude != 0f)
+        {
+            Quaternion desiredRotation = Quaternion.identity;
+            Vector3 destPoint = transform.position + GetWorldVelocity3D();
+            desiredRotation = Quaternion.LookRotation(Vector3.forward, (destPoint - transform.position).normalized);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, Time.deltaTime * rotationSpeedDegreesPerSec);
+            //Quaternion.LookRotation()
+            //transform.LookAt(transform.position + GetWorldVelocity3D(), Vector3.up);
+            //transform.Rotate(Vector3.right, 90f );//bleh, because my forward is actually different.
+        }
+    }
+
+    Vector3 GetWorldVelocity3D()
+    {
+        if (body)
+        {
+            return new Vector3(body.velocity.x, body.velocity.y, 0f);
+        }
+
+        return Vector3.zero;
+    }
+
+#if UNITY_EDITOR
+    public void OnDrawGizmosSelected()
+    {
+        if (body)
+        {
+
+            Gizmos.DrawWireSphere(transform.position + GetWorldVelocity3D() * 10f, 10f);
+        }
+    }
+#endif //UNITY_EDITOR
+
     float CalcMaxSpeed()
     {
         float max = float.PositiveInfinity;
@@ -206,4 +263,16 @@ public class PlayerShip : MonoBehaviour
             body.simulated = false;
         }
     }
+
+    public void OnEnable()
+    {
+        GameManager.playerShip = this;
+    }
+
+    public void OnDisable()
+    {
+
+    }
+
+    
 }
