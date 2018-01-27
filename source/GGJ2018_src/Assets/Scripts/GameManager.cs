@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour
 	}
 	#endregion Singleton Access
 
+	private ItemGrabManager itemGrabManager = null;
+	public ItemGrabManager ItemGrabManager
+	{
+		get { return itemGrabManager; }
+	}
+
 	private void Awake()
 	{
 		if(activeInstance != null)
@@ -21,5 +27,8 @@ public class GameManager : MonoBehaviour
 		}
 
 		activeInstance = this;
+		DontDestroyOnLoad( gameObject );
+
+		itemGrabManager = gameObject.AddComponent<ItemGrabManager>();
 	}
 }

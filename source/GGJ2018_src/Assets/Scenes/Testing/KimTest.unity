@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 493919009}
   - component: {fileID: 493919008}
   - component: {fileID: 493919007}
+  - component: {fileID: 493919010}
   m_Layer: 5
   m_Name: btnItem
   m_TagString: Untagged
@@ -298,6 +299,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 493919005}
+--- !u!114 &493919010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 493919005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac122613270c24a4a95f8bdd069504de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
 --- !u!1 &507041183
 GameObject:
   m_ObjectHideFlags: 0
