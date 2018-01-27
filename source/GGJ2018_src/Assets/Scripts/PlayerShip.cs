@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class PlayerShip : MonoBehaviour
 {
-    [Header("Fuel")]
     [Range(0f, 100f)]
     public float fuel = 100f;
     public float maxFuel = 100f;
@@ -19,42 +18,18 @@ public class PlayerShip : MonoBehaviour
 
     public bool canGo = false;
 
-    [Header("Death")]
     public GameObject explosionPrefab;
     public GameObject deadSpacemanPrefab;
-    public float deathShakePower = 0.05f;
-    public float deathShakeDuration = 2f;
 
     public GameObject model;
 
     List<DelayField> delayFieldsImIn = new List<DelayField>();
-    List<GravityField> gravityFieldsImIn = new List<GravityField>();
-    List<RepulseField> repulseFieldsImIn = new List<RepulseField>();
-
-    List<ParticleSystem> thrusterParticles = new List<ParticleSystem>();
-    public GameObject thrusterFX;
-
-    public float rotationSpeedDegreesPerSec = 60f;
-
-    [Header("Launch")]
-    public float launchShakePower = 0.005f;
-    public float launchShakeDuration = 3f;
-
-
 
     // Use this for initialization
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         body.simulated = false;
-
-        // find our thrusters (we'll just look for all under thruster fx gameobject)
-        if (thrusterFX)
-        {
-            thrusterParticles.AddRange(thrusterFX.GetComponentsInChildren<ParticleSystem>());
-        }
-
-        SetThrusters(false);
     }
 
     // Update is called once per frame
@@ -63,8 +38,6 @@ public class PlayerShip : MonoBehaviour
         if (canGo)
         {
             UpdateFuel();
-
-            PointTowardsVelocity();
         }
     }
 
@@ -76,7 +49,6 @@ public class PlayerShip : MonoBehaviour
         model.SetActive(true);
         ResetFuel();
         body.simulated = false;
-        SetThrusters(false);
     }
 
     [ContextMenu("LAUNCH")]
@@ -85,22 +57,6 @@ public class PlayerShip : MonoBehaviour
         canGo = true;
         body.simulated = true;
         // todo: play some launch sfx
-        SetThrusters(true);
-
-        GameCamera.Current.Shake(launchShakePower, launchShakeDuration);
-    }
-
-    public void SetThrusters(bool i_on)
-    {
-        for (int i = 0; i < thrusterParticles.Count; i++)
-        {
-            if (thrusterParticles[i])
-            {
-                ParticleSystem.EmissionModule em = thrusterParticles[i].emission;
-                em.enabled = i_on;
-                // you don't need to reassign the em module
-            }
-        }
     }
 
     public void AddFuel(float amountToAdd)
@@ -138,8 +94,6 @@ public class PlayerShip : MonoBehaviour
     void OnFuelEmpty()
     {
         onFuelEmpty.Invoke();
-
-        SetThrusters(false);
     }
 
     public void FixedUpdate()
@@ -160,10 +114,6 @@ public class PlayerShip : MonoBehaviour
         }
 
         ApplyDelayFieldBrakes();
-        ApplyGravityFields();
-        ApplyRepulseFields();
-
-        //PointTowardsVelocity();
     }
 
     void ApplyDelayFieldBrakes()
@@ -257,18 +207,6 @@ public class PlayerShip : MonoBehaviour
         {
             delayFieldsImIn.Add(delayField);
         }
-
-        GravityField gravityField = collision.GetComponent<GravityField>();
-        if (gravityField)
-        {
-            gravityFieldsImIn.Add(gravityField);
-        }
-
-        RepulseField repulseField = collision.GetComponent<RepulseField>();
-        if (repulseField)
-        {
-            repulseFieldsImIn.Add(repulseField);
-        }
     }
 
     public void OnTriggerExit2D(Collider2D other)
@@ -277,18 +215,6 @@ public class PlayerShip : MonoBehaviour
         if (delayField)
         {
             delayFieldsImIn.Remove(delayField);
-        }
-
-        GravityField gravityField = other.GetComponent<GravityField>();
-        if (gravityField)
-        {
-            gravityFieldsImIn.Remove(gravityField);
-        }
-
-        RepulseField repulseField = other.GetComponent<RepulseField>();
-        if (repulseField)
-        {
-            repulseFieldsImIn.Remove(repulseField);
         }
     }
 
@@ -330,10 +256,6 @@ public class PlayerShip : MonoBehaviour
                     spacemanBody.AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)), ForceMode2D.Impulse);
                 }
             }
-
-            GameCamera.Current.Shake(deathShakePower,deathShakeDuration);
-
-            SetThrusters(false);
 
             // hide our model
             model.SetActive(false);

@@ -10,18 +10,9 @@ public class PlayerShipEditor : Editor {
     {
         base.OnInspectorGUI();
 
-        PlayerShip ship = (PlayerShip)target;
-
-        float speed = 0f;
-        if(ship.body)
-        {
-            speed = ship.body.velocity.magnitude;
-        }
-        EditorGUILayout.LabelField("Current Speed: " + speed);
-
         if(GUILayout.Button("LAUNCH!!!"))
         {
-            
+            PlayerShip ship = (PlayerShip)target;
             ship.LaunchShip();
         }
     }
