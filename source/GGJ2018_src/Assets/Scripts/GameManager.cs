@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager
 {
 	#region Singleton Access
 	private static GameManager activeInstance = null;
 	public static GameManager Instance
 	{
-		get { return activeInstance; }
+		get
+		{
+			if(activeInstance == null)
+			{
+				activeInstance = new GameManager();
+			}
+
+			return activeInstance;
+		}
 	}
 	#endregion Singleton Access
 
@@ -16,21 +24,25 @@ public class GameManager : MonoBehaviour
 	public ItemGrabManager ItemGrabManager
 	{
 		get { return itemGrabManager; }
+		set { itemGrabManager = value; }
+	}
+
+	private GameObject guiRoot = null;
+	public GameObject GUIRoot
+	{
+		get { return guiRoot; }
+		set { guiRoot = value; }
 	}
 
     public static PlayerShip playerShip;
 
-	private void Awake()
+	public HUD HUD
 	{
-		if(activeInstance != null)
-		{
-			Destroy( gameObject );
-			return;
-		}
+		get { return guiRoot.GetComponent<HUD>(); }
+	}
 
+	private GameManager()
+	{
 		activeInstance = this;
-		DontDestroyOnLoad( gameObject );
-
-		itemGrabManager = gameObject.AddComponent<ItemGrabManager>();
 	}
 }
