@@ -12,7 +12,7 @@ public class PlayerShip : MonoBehaviour
 
     public float fuelConsumptionRate = 5f;
 
-    Rigidbody2D body;
+    public Rigidbody2D body;
 
     public UnityEvent onFuelEmpty;
 
@@ -203,7 +203,7 @@ public class PlayerShip : MonoBehaviour
 
     Vector3 GetWorldVelocity3D()
     {
-        if(body)
+        if (body)
         {
             return new Vector3(body.velocity.x, body.velocity.y, 0f);
         }
@@ -216,7 +216,7 @@ public class PlayerShip : MonoBehaviour
     {
         if (body)
         {
-            
+
             Gizmos.DrawWireSphere(transform.position + GetWorldVelocity3D() * 10f, 10f);
         }
     }
@@ -327,4 +327,16 @@ public class PlayerShip : MonoBehaviour
             body.simulated = false;
         }
     }
+
+    public void OnEnable()
+    {
+        GameManager.playerShip = this;
+    }
+
+    public void OnDisable()
+    {
+
+    }
+
+    
 }

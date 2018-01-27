@@ -34,6 +34,8 @@ public class GameManager
 		set { guiRoot = value; }
 	}
 
+    public static PlayerShip playerShip;
+
 	public HUD HUD
 	{
 		get { return guiRoot.GetComponent<HUD>(); }
