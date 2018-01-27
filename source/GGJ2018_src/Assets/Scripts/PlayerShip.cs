@@ -24,12 +24,27 @@ public class PlayerShip : MonoBehaviour
     public GameObject model;
 
     List<DelayField> delayFieldsImIn = new List<DelayField>();
+    List<GravityField> gravityFieldsImIn = new List<GravityField>();
+    List<RepulseField> repulseFieldsImIn = new List<RepulseField>();
+
+    List<ParticleSystem> thrusterParticles = new List<ParticleSystem>();
+    public GameObject thrusterFX;
+
+    public float rotationSpeedDegreesPerSec = 60f;
 
     // Use this for initialization
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         body.simulated = false;
+
+        // find our thrusters (we'll just look for all under thruster fx gameobject)
+        if (thrusterFX)
+        {
+            thrusterParticles.AddRange(thrusterFX.GetComponentsInChildren<ParticleSystem>());
+        }
+
+        SetThrusters(false);
     }
 
     // Update is called once per frame
@@ -38,6 +53,8 @@ public class PlayerShip : MonoBehaviour
         if (canGo)
         {
             UpdateFuel();
+
+            PointTowardsVelocity();
         }
     }
 
@@ -49,6 +66,7 @@ public class PlayerShip : MonoBehaviour
         model.SetActive(true);
         ResetFuel();
         body.simulated = false;
+        SetThrusters(false);
     }
 
     [ContextMenu("LAUNCH")]
@@ -57,6 +75,20 @@ public class PlayerShip : MonoBehaviour
         canGo = true;
         body.simulated = true;
         // todo: play some launch sfx
+        SetThrusters(true);
+    }
+
+    public void SetThrusters(bool i_on)
+    {
+        for (int i = 0; i < thrusterParticles.Count; i++)
+        {
+            if (thrusterParticles[i])
+            {
+                ParticleSystem.EmissionModule em = thrusterParticles[i].emission;
+                em.enabled = i_on;
+                // you don't need to reassign the em module
+            }
+        }
     }
 
     public void AddFuel(float amountToAdd)
@@ -94,6 +126,8 @@ public class PlayerShip : MonoBehaviour
     void OnFuelEmpty()
     {
         onFuelEmpty.Invoke();
+
+        SetThrusters(false);
     }
 
     public void FixedUpdate()
@@ -114,6 +148,10 @@ public class PlayerShip : MonoBehaviour
         }
 
         ApplyDelayFieldBrakes();
+        ApplyGravityFields();
+        ApplyRepulseFields();
+
+        //PointTowardsVelocity();
     }
 
     void ApplyDelayFieldBrakes()
@@ -126,6 +164,63 @@ public class PlayerShip : MonoBehaviour
             body.AddForce(body.velocity * -1f * DelayField.BRAKE_POWER);
         }
     }
+
+    void ApplyGravityFields()
+    {
+        for (int i = 0; i < gravityFieldsImIn.Count; i++)
+        {
+            if (gravityFieldsImIn[i])
+            {
+                body.AddForce((gravityFieldsImIn[i].transform.position - transform.position).normalized * gravityFieldsImIn[i].power * Time.fixedDeltaTime);
+            }
+        }
+    }
+
+    void ApplyRepulseFields()
+    {
+        for (int i = 0; i < repulseFieldsImIn.Count; i++)
+        {
+            if (repulseFieldsImIn[i])
+            {
+                body.AddForce((repulseFieldsImIn[i].transform.position - transform.position).normalized * -repulseFieldsImIn[i].power * Time.fixedDeltaTime);
+            }
+        }
+    }
+
+    void PointTowardsVelocity()
+    {
+        if (body.velocity.magnitude != 0f)
+        {
+            Quaternion desiredRotation = Quaternion.identity;
+            Vector3 destPoint = transform.position + GetWorldVelocity3D();
+            desiredRotation = Quaternion.LookRotation(Vector3.forward, (destPoint - transform.position).normalized);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, Time.deltaTime * rotationSpeedDegreesPerSec);
+            //Quaternion.LookRotation()
+            //transform.LookAt(transform.position + GetWorldVelocity3D(), Vector3.up);
+            //transform.Rotate(Vector3.right, 90f );//bleh, because my forward is actually different.
+        }
+    }
+
+    Vector3 GetWorldVelocity3D()
+    {
+        if(body)
+        {
+            return new Vector3(body.velocity.x, body.velocity.y, 0f);
+        }
+
+        return Vector3.zero;
+    }
+
+#if UNITY_EDITOR
+    public void OnDrawGizmosSelected()
+    {
+        if (body)
+        {
+            
+            Gizmos.DrawWireSphere(transform.position + GetWorldVelocity3D() * 10f, 10f);
+        }
+    }
+#endif //UNITY_EDITOR
 
     float CalcMaxSpeed()
     {
@@ -150,6 +245,18 @@ public class PlayerShip : MonoBehaviour
         {
             delayFieldsImIn.Add(delayField);
         }
+
+        GravityField gravityField = collision.GetComponent<GravityField>();
+        if (gravityField)
+        {
+            gravityFieldsImIn.Add(gravityField);
+        }
+
+        RepulseField repulseField = collision.GetComponent<RepulseField>();
+        if (repulseField)
+        {
+            repulseFieldsImIn.Add(repulseField);
+        }
     }
 
     public void OnTriggerExit2D(Collider2D other)
@@ -158,6 +265,18 @@ public class PlayerShip : MonoBehaviour
         if (delayField)
         {
             delayFieldsImIn.Remove(delayField);
+        }
+
+        GravityField gravityField = other.GetComponent<GravityField>();
+        if (gravityField)
+        {
+            gravityFieldsImIn.Remove(gravityField);
+        }
+
+        RepulseField repulseField = other.GetComponent<RepulseField>();
+        if (repulseField)
+        {
+            repulseFieldsImIn.Remove(repulseField);
         }
     }
 
@@ -199,6 +318,8 @@ public class PlayerShip : MonoBehaviour
                     spacemanBody.AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)), ForceMode2D.Impulse);
                 }
             }
+
+            SetThrusters(false);
 
             // hide our model
             model.SetActive(false);

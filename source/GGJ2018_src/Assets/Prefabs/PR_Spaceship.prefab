@@ -284,6 +284,8 @@ MonoBehaviour:
   deadSpacemanPrefab: {fileID: 1474907680430456, guid: ea9d208a6e35d3a47932b4c33a2def21,
     type: 2}
   model: {fileID: 1353780819983774}
+  thrusterFX: {fileID: 1267313926860194}
+  rotationSpeedDegreesPerSec: 60
 --- !u!114 &114657254176406636
 MonoBehaviour:
   m_ObjectHideFlags: 1

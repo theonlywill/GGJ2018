@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1458961502839386}
+  m_RootGameObject: {fileID: 1925824832355398}
   m_IsPrefabParent: 1
---- !u!1 &1387340601067138
+--- !u!1 &1106145992293726
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4320680671512184}
-  - component: {fileID: 212721116823698178}
+  - component: {fileID: 4684887673078734}
+  - component: {fileID: 212804651373964676}
   m_Layer: 5
   m_Name: delayfield sprite
   m_TagString: Untagged
@@ -27,56 +27,56 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1458961502839386
+--- !u!1 &1925824832355398
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4157676528806728}
-  - component: {fileID: 58058511276488498}
-  - component: {fileID: 114992565375993374}
+  - component: {fileID: 4639992074484330}
+  - component: {fileID: 58159179256230974}
+  - component: {fileID: 114430573109070158}
   m_Layer: 5
-  m_Name: PR_DelayField
+  m_Name: PR_RepulseField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4157676528806728
+--- !u!4 &4639992074484330
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1458961502839386}
+  m_GameObject: {fileID: 1925824832355398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 156.9173, y: 169.09137, z: 0}
+  m_LocalPosition: {x: 104.6, y: 132.1, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4320680671512184}
+  - {fileID: 4684887673078734}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4320680671512184
+--- !u!4 &4684887673078734
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1387340601067138}
+  m_GameObject: {fileID: 1106145992293726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 150, y: 150, z: 150}
   m_Children: []
-  m_Father: {fileID: 4157676528806728}
+  m_Father: {fileID: 4639992074484330}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58058511276488498
+--- !u!58 &58159179256230974
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1458961502839386}
+  m_GameObject: {fileID: 1925824832355398}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -86,24 +86,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 13
---- !u!114 &114992565375993374
+--- !u!114 &114430573109070158
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1458961502839386}
+  m_GameObject: {fileID: 1925824832355398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 352aa0f4c84e823449fe2564ce12ecdc, type: 3}
+  m_Script: {fileID: 11500000, guid: b83a57c587152c847bfd9e6ccabf3fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
---- !u!212 &212721116823698178
+  power: 98
+--- !u!212 &212804651373964676
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1387340601067138}
+  m_GameObject: {fileID: 1106145992293726}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -133,7 +133,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.33823532, b: 0.33823532, a: 0.316}
+  m_Color: {r: 0.9634889, g: 1, b: 0.33823532, a: 0.316}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
