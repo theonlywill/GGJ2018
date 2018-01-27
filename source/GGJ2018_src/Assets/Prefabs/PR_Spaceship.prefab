@@ -134,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1030205106077898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 89.710144, y: 104.78, z: 90.00238}
+  m_LocalPosition: {x: 0, y: 0, z: 90.00238}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4401946467590078}
@@ -274,6 +274,7 @@ MonoBehaviour:
   maxFuel: 100
   forwardSpeed: 180
   fuelConsumptionRate: 15
+  body: {fileID: 0}
   onFuelEmpty:
     m_PersistentCalls:
       m_Calls: []
@@ -284,6 +285,8 @@ MonoBehaviour:
   deadSpacemanPrefab: {fileID: 1474907680430456, guid: ea9d208a6e35d3a47932b4c33a2def21,
     type: 2}
   model: {fileID: 1353780819983774}
+  thrusterFX: {fileID: 1267313926860194}
+  rotationSpeedDegreesPerSec: 60
 --- !u!114 &114657254176406636
 MonoBehaviour:
   m_ObjectHideFlags: 1
