@@ -71,12 +71,32 @@ public class PlayerShip : MonoBehaviour
     [ContextMenu("Reset Ship")]
     public void ResetShip()
     {
-        // TODO: Place me on the launchpad
+        StartCoroutine(ResetShipRoutine());
 
-        model.SetActive(true);
+    }
+
+    IEnumerator ResetShipRoutine()
+    {
+        
+        //model.SetActive(true);
         ResetFuel();
         body.simulated = false;
         SetThrusters(false);
+        body.velocity = Vector2.zero;
+        body.angularVelocity = 0f;
+
+        delayFieldsImIn.Clear();
+        gravityFieldsImIn.Clear();
+        repulseFieldsImIn.Clear();
+
+        //reset our rotation
+        transform.rotation = Quaternion.identity;
+
+        yield return new WaitForSeconds(1f);
+
+        // Place me on the launchpad
+        transform.position = Vector3.zero;
+        model.SetActive(true);
     }
 
     [ContextMenu("LAUNCH")]
@@ -306,12 +326,13 @@ public class PlayerShip : MonoBehaviour
 
                 gameObject.SetActive(false);
 
+                LevelSystem.FinishLevel();
+
                 return;
             }
 
             // fuel pickups are handled in fuelpickup.cs.ontriggerenter (cause they have trigger volumes)
-
-            // TODO: YOU LOOSE!!
+            
 
             // create our explosion and our dead space man
             if (explosionPrefab)
@@ -333,6 +354,8 @@ public class PlayerShip : MonoBehaviour
             model.SetActive(false);
             canGo = false;
             body.simulated = false;
+
+            ResetShip();
         }
     }
 

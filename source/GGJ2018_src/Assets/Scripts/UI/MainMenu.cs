@@ -11,7 +11,8 @@ public class MainMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        
+
 	}
 
     public void HandleStartButton()
@@ -22,5 +23,10 @@ public class MainMenu : MonoBehaviour {
     public void HandleQuitButton()
     {
         Application.Quit();
+    }
+
+    public void HandleTutorialButton()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
     }
 }
