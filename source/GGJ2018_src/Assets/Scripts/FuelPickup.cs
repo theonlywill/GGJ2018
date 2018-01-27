@@ -41,7 +41,7 @@ public class FuelPickup : MonoBehaviour
 
     IEnumerator SelfDestructRoutine()
     {
-        Debug.Log("Self destructing");
+        //Debug.Log("Self destructing");
         yield return null;
         // disable our collider
         //TODO: spawn a pickup fx
