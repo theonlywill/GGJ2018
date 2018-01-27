@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerShip : MonoBehaviour
 {
+    [Header("Fuel")]
     [Range(0f, 100f)]
     public float fuel = 100f;
     public float maxFuel = 100f;
@@ -18,8 +19,11 @@ public class PlayerShip : MonoBehaviour
 
     public bool canGo = false;
 
+    [Header("Death")]
     public GameObject explosionPrefab;
     public GameObject deadSpacemanPrefab;
+    public float deathShakePower = 0.05f;
+    public float deathShakeDuration = 2f;
 
     public GameObject model;
 
@@ -31,6 +35,12 @@ public class PlayerShip : MonoBehaviour
     public GameObject thrusterFX;
 
     public float rotationSpeedDegreesPerSec = 60f;
+
+    [Header("Launch")]
+    public float launchShakePower = 0.005f;
+    public float launchShakeDuration = 3f;
+
+
 
     // Use this for initialization
     void Start()
@@ -76,6 +86,8 @@ public class PlayerShip : MonoBehaviour
         body.simulated = true;
         // todo: play some launch sfx
         SetThrusters(true);
+
+        GameCamera.Current.Shake(launchShakePower, launchShakeDuration);
     }
 
     public void SetThrusters(bool i_on)
@@ -318,6 +330,8 @@ public class PlayerShip : MonoBehaviour
                     spacemanBody.AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)), ForceMode2D.Impulse);
                 }
             }
+
+            GameCamera.Current.Shake(deathShakePower,deathShakeDuration);
 
             SetThrusters(false);
 

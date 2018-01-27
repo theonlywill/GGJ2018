@@ -13,22 +13,24 @@ public class GameCamera : MonoBehaviour
 
     CameraShake shake;
 
-	// Use this for initialization
-	void Start ()
+    public static GameCamera Current;
+
+    // Use this for initialization
+    void Start()
     {
         shake = GetComponent<CameraShake>();
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         Vector3 newPos = transform.position;
 
-		// follow player ship
-        if(GameManager.playerShip && GameManager.playerShip.canGo)
+        // follow player ship
+        if (GameManager.playerShip && GameManager.playerShip.canGo)
         {
             Vector3 playerPosPlusVelocity = GameManager.playerShip.transform.position;
-            if(GameManager.playerShip.body && GameManager.playerShip.body.velocity.magnitude > 0f)
+            if (GameManager.playerShip.body && GameManager.playerShip.body.velocity.magnitude > 0f)
             {
                 Vector3 velocityMod = GameManager.playerShip.body.velocity * velocityOffsetMultiplier;
                 velocityMod = Vector3.ClampMagnitude(velocityMod, maxVelocityOffset);
@@ -38,7 +40,7 @@ public class GameCamera : MonoBehaviour
         }
 
         // enforce bottom limit
-        if(newPos.y < bottomMostPos)
+        if (newPos.y < bottomMostPos)
         {
             newPos.y = bottomMostPos;
         }
@@ -46,7 +48,7 @@ public class GameCamera : MonoBehaviour
         newPos.x = 0f;
 
         transform.position = newPos;
-	}
+    }
 
     [ContextMenu("Test Shake")]
     public void TestShake()
@@ -56,10 +58,15 @@ public class GameCamera : MonoBehaviour
 
     public void Shake(float amount, float duration)
     {
-        if(shake)
+        if (shake)
         {
             shake.shake = duration;
             shake.shakeAmount = amount;
         }
+    }
+
+    public void OnEnable()
+    {
+        Current = this;
     }
 }
