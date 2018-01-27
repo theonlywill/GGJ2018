@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4401946467590078}
   - component: {fileID: 212414970804929922}
   m_Layer: 0
-  m_Name: Model
+  m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1030205106077898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90.00238}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4401946467590078}
@@ -150,8 +150,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1765349456086918}
   m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.7071079}
-  m_LocalPosition: {x: 0, y: -9.07, z: 0}
-  m_LocalScale: {x: 13.1847925, y: 13.184778, z: 13.184778}
+  m_LocalPosition: {x: 0, y: -0.093, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4507023019977660}
   m_RootOrder: 0
@@ -177,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 1353780819983774}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4106524835586100}
   m_RootOrder: 0
@@ -217,8 +217,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1426315953069640}
   m_LocalRotation: {x: 0.70710474, y: -0, z: -0, w: 0.7071089}
-  m_LocalPosition: {x: 0, y: -9.650002, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 4295919374115852}
   m_Father: {fileID: 4507023019977660}
@@ -238,7 +238,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0.1
+  m_GravityScale: 0.05
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -258,7 +258,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6.5
+  m_Radius: 0.05
 --- !u!114 &114428323057790346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuel: 100
   maxFuel: 100
-  forwardSpeed: 180
+  forwardSpeed: 30
   fuelConsumptionRate: 15
   body: {fileID: 0}
   onFuelEmpty:
@@ -281,12 +281,17 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   canGo: 0
-  explosionPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 1646261946664406, guid: 4d3f91123596c724abb2abaff893dbb2,
+    type: 2}
   deadSpacemanPrefab: {fileID: 1474907680430456, guid: ea9d208a6e35d3a47932b4c33a2def21,
     type: 2}
+  deathShakePower: 0.05
+  deathShakeDuration: 2
   model: {fileID: 1353780819983774}
   thrusterFX: {fileID: 1267313926860194}
   rotationSpeedDegreesPerSec: 60
+  launchShakePower: 0.005
+  launchShakeDuration: 3
 --- !u!114 &114657254176406636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -363,7 +368,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1663370653
+  randomSeed: 1120311447
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3586,7 +3591,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -368182004
+  randomSeed: -1203661217
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6851,7 +6856,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -2064955443
+  randomSeed: 1785912496
   InitialModule:
     serializedVersion: 3
     enabled: 1
