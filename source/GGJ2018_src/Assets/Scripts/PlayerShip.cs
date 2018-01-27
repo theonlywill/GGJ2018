@@ -322,13 +322,7 @@ public class PlayerShip : MonoBehaviour
             if (deadSpacemanPrefab)
             {
                 GameObject goSpaceman = GameObject.Instantiate<GameObject>(deadSpacemanPrefab, transform.position, Quaternion.identity, null);
-                // add a tiiiny amount of force to him, so he'll float
-                Rigidbody2D spacemanBody = goSpaceman.GetComponent<Rigidbody2D>();
-                if (spacemanBody)
-                {
-                    float forcePower = Random.Range(.1f, 1f);
-                    spacemanBody.AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)), ForceMode2D.Impulse);
-                }
+
             }
 
             GameCamera.Current.Shake(deathShakePower,deathShakeDuration);
