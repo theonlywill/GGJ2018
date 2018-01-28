@@ -25,6 +25,21 @@ public class ItemGrabManager : MonoBehaviour
 				ReleaseItem();
 			}
 		}
+		else if( Input.GetMouseButtonDown( 0 ) )
+		{
+			Vector3 origin = new Vector3( Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane );
+			Ray ray = Camera.main.ScreenPointToRay( origin );
+
+			RaycastHit2D hitInfo = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+			if( hitInfo )
+			{
+				Item item = hitInfo.transform.gameObject.GetComponent<Item>();
+				if( item != null )
+				{
+					GrabItem( item.gameObject );
+				}
+			}
+		}
 	}
 	#endregion Unity Messages
 
@@ -38,6 +53,12 @@ public class ItemGrabManager : MonoBehaviour
 		{
 			body.isKinematic = true;
 		}
+
+		Item itemComp = item.GetComponent<Item>();
+		if(itemComp != null)
+		{
+			itemComp.SetCollidersEnabled( false );
+		}
 		
 		UpdateHeldItemPosition();
 	}
@@ -50,6 +71,12 @@ public class ItemGrabManager : MonoBehaviour
 		if( body != null )
 		{
 			body.isKinematic = false;
+		}
+
+		Item itemComp = heldItem.GetComponent<Item>();
+		if( itemComp != null )
+		{
+			itemComp.SetCollidersEnabled( true );
 		}
 
 		heldItem = null;

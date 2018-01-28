@@ -27,21 +27,16 @@ public class GameManager
 		set { itemGrabManager = value; }
 	}
 
+<<<<<<< HEAD
 	private GameObject guiRoot = null;
 	public GameObject GUIRoot
 	{
 		get { return guiRoot; }
 		set { guiRoot = value; }
 	}
-
+=======
     public static PlayerShip playerShip;
-
-	private PlayerShipLauncher shipLauncher = null;
-	public PlayerShipLauncher ShipLauncher
-	{
-		get { return shipLauncher; }
-		set { shipLauncher = value; }
-	}
+>>>>>>> efefac0e4dd769e0a4cf314962a79c4b4c3a5df0
 
 	public HUD HUD
 	{

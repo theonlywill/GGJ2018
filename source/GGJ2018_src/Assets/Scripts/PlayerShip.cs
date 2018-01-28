@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class PlayerShip : MonoBehaviour
 {
-    [Header("Fuel")]
     [Range(0f, 100f)]
     public float fuel = 100f;
     public float maxFuel = 100f;
@@ -19,11 +18,8 @@ public class PlayerShip : MonoBehaviour
 
     public bool canGo = false;
 
-    [Header("Death")]
     public GameObject explosionPrefab;
     public GameObject deadSpacemanPrefab;
-    public float deathShakePower = 0.05f;
-    public float deathShakeDuration = 2f;
 
     public GameObject model;
 
@@ -35,12 +31,6 @@ public class PlayerShip : MonoBehaviour
     public GameObject thrusterFX;
 
     public float rotationSpeedDegreesPerSec = 60f;
-
-    [Header("Launch")]
-    public float launchShakePower = 0.005f;
-    public float launchShakeDuration = 3f;
-
-
 
     // Use this for initialization
     void Start()
@@ -71,32 +61,14 @@ public class PlayerShip : MonoBehaviour
     [ContextMenu("Reset Ship")]
     public void ResetShip()
     {
-        StartCoroutine(ResetShipRoutine());
+        // TODO: Place me on the launchpad
 
-    }
-
-    IEnumerator ResetShipRoutine()
-    {
-        
-        //model.SetActive(true);
+        model.SetActive(true);
         ResetFuel();
         body.simulated = false;
         SetThrusters(false);
-        body.velocity = Vector2.zero;
-        body.angularVelocity = 0f;
 
-        delayFieldsImIn.Clear();
-        gravityFieldsImIn.Clear();
-        repulseFieldsImIn.Clear();
-
-        //reset our rotation
-        transform.rotation = Quaternion.identity;
-
-        yield return new WaitForSeconds(1f);
-
-        // Place me on the launchpad
-        transform.position = Vector3.zero;
-        model.SetActive(true);
+		GameManager.Instance.ShipLauncher.ResetLauncher();
     }
 
     [ContextMenu("LAUNCH")]
@@ -106,8 +78,6 @@ public class PlayerShip : MonoBehaviour
         body.simulated = true;
         // todo: play some launch sfx
         SetThrusters(true);
-
-        GameCamera.Current.Shake(launchShakePower, launchShakeDuration);
     }
 
     public void SetThrusters(bool i_on)
@@ -326,13 +296,12 @@ public class PlayerShip : MonoBehaviour
 
                 gameObject.SetActive(false);
 
-                LevelSystem.FinishLevel();
-
                 return;
             }
 
             // fuel pickups are handled in fuelpickup.cs.ontriggerenter (cause they have trigger volumes)
-            
+
+            // TODO: YOU LOOSE!!
 
             // create our explosion and our dead space man
             if (explosionPrefab)
@@ -343,10 +312,14 @@ public class PlayerShip : MonoBehaviour
             if (deadSpacemanPrefab)
             {
                 GameObject goSpaceman = GameObject.Instantiate<GameObject>(deadSpacemanPrefab, transform.position, Quaternion.identity, null);
-
+                // add a tiiiny amount of force to him, so he'll float
+                Rigidbody2D spacemanBody = goSpaceman.GetComponent<Rigidbody2D>();
+                if (spacemanBody)
+                {
+                    float forcePower = Random.Range(.1f, 1f);
+                    spacemanBody.AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)), ForceMode2D.Impulse);
+                }
             }
-
-            GameCamera.Current.Shake(deathShakePower,deathShakeDuration);
 
             SetThrusters(false);
 
@@ -354,8 +327,6 @@ public class PlayerShip : MonoBehaviour
             model.SetActive(false);
             canGo = false;
             body.simulated = false;
-
-            ResetShip();
         }
     }
 
