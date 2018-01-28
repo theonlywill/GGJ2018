@@ -67,6 +67,8 @@ public class PlayerShip : MonoBehaviour
         ResetFuel();
         body.simulated = false;
         SetThrusters(false);
+
+		GameManager.Instance.ShipLauncher.ResetLauncher();
     }
 
     [ContextMenu("LAUNCH")]
